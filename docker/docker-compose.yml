@@ -1,0 +1,22 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: db
+    environment:
+      POSTGRES_DB: boutiques_tech_221
+      POSTGRES_USER: boutiques_tech_user
+      POSTGRES_PASSWORD: boutiques_tech_password
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - biboEleaning-network
+
+volumes:
+  postgres_data:
+
+networks:
+  biboEleaning-network:
+    driver: bridge
