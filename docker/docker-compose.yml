@@ -4,19 +4,19 @@ services:
     image: postgres:17
     container_name: db
     environment:
-      POSTGRES_DB: boutiques_tech_221
-      POSTGRES_USER: boutiques_tech_user
-      POSTGRES_PASSWORD: boutiques_tech_password
+      POSTGRES_DB: labo_221
+      POSTGRES_USER: labo_user
+      POSTGRES_PASSWORD: labo_password
     ports:
       - '5434:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - labo_data:/var/lib/postgresql/data
     networks:
-      - biboEleaning-network
+      - labo-network
 
 volumes:
-  postgres_data:
+  labo_data:
 
 networks:
-  biboEleaning-network:
+  labo-network:
     driver: bridge

@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Technicien {
+  id            Int           @id @default(autoincrement())
+  prenom        String
+  nom           String
+  email         String        @unique
+  telephone     String?
+  qualification String
+  prelevements  Prelevement[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+model Patient {
+  id            Int           @id @default(autoincrement())
+  prenom        String
+  nom           String
+  dateNaissance DateTime
+  telephone     String?
+  email         String        @unique
+  prelevements  Prelevement[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+model Analyse {
+  id            Int           @id @default(autoincrement())
+  code          String        @unique
+  libelle       String
+  prix          Float
+  delaiResultat Int
+  prelevements  Prelevement[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+enum Statut {
+  EN_ATTENTE
+  EN_COURS
+  TERMINE
+}
+
+model Prelevement {
+  id Int @id @default(autoincrement())
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId Int
+
+  technicien   Technicien @relation(fields: [technicienId], references: [id])
+  technicienId Int
+
+  analyse   Analyse @relation(fields: [analyseId], references: [id])
+  analyseId Int
+
+  datePrelevement DateTime
+  dateResultat    DateTime?
+  statut          Statut    @default(EN_ATTENTE)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+}

@@ -11,15 +11,31 @@ class BaseRepository {
     }
 
     async findAll(args = {}) {
-        return this.prisma[this.model].findMany(args);
+        return this.prisma[this.model].findMany({
+            ...args,
+            where: {
+                ...(args.where || {}),
+                deletedAt: null
+            }
+        });
     }
 
     async findById(id) {
-        return this.prisma[this.model].findUnique({ where: { id } });
+        return this.prisma[this.model].findFirst({
+            where: { 
+                id, 
+                deletedAt: null 
+            } 
+        });
     }
 
     async findFirst(where) {
-        return this.prisma[this.model].findFirst({ where });
+        return this.prisma[this.model].findFirst({ 
+            where: {
+                ...where,
+                deletedAt: null
+            }
+        });
     }
 
     async update(id, data) {
@@ -27,7 +43,10 @@ class BaseRepository {
     }
 
     async delete(id) {
-        return this.prisma[this.model].delete({ where: { id } });
+        return this.prisma[this.model].update({ 
+            where: { id },
+            data: { deletedAt: new Date() }
+        });
     }
 }
 
