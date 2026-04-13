@@ -11,3 +11,59 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+Enum Role {
+  TECHNICIEN
+  PATIENT
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  prenom String
+  nom String
+  email String @unique
+  telephone String?
+  password String
+  role Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+  
+
+model Analyse {
+  id Int @id @default(autoincrement())
+  code String @unique
+  libelle String
+  prix Float
+  delaiResultat Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+Enum Statut {
+  EN_ATTENTE
+  EN_COURS
+  TERMINE
+}
+
+model Prelevement {
+  id Int @id @default(autoincrement())
+
+  patient User @relation(fields: [patientId], references: [id])
+  patientId Int
+
+  technicien User @relation(fields: [technicienId], references: [id])
+  technicienId Int
+
+  analyse Analyse @relation(fields: [analyseId], references: [id])
+  analyseId Int
+
+  datePrelevement DateTime
+  dateResultat DateTime?
+  statut Statut
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
