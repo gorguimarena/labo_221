@@ -1,21 +1,8 @@
-import express from "../config/express";
+import express from "express";
+import prelevementController from "../controllers/prelevement.controller.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des prélèvements" });
-});
-
-router.post("/", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des prélèvements" });
-});
-
-router.put("/:id", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des prélèvements" });
-});
-
-router.delete("/:id", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des prélèvements" });
-});
+router.post("/", prelevementController.create);
 
 export default router;

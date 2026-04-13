@@ -1,48 +1,55 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-Enum Role {
-  TECHNICIEN
-  PATIENT
-}
-
-model User {
+model Technicien {
   id    Int     @id @default(autoincrement())
   prenom String
   nom String
   email String @unique
   telephone String?
-  password String
-  role Role
+  qualification String
+  prelevements Prelevement[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+model Patient {
+  id    Int     @id @default(autoincrement())
+  prenom String
+  nom String
+  dateNaissance DateTime
+  telephone String?
+  email String @unique
+  prelevements Prelevement[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 }
   
-
 model Analyse {
   id Int @id @default(autoincrement())
   code String @unique
   libelle String
   prix Float
   delaiResultat Int
+  prelevements Prelevement[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 }
 
-Enum Statut {
+enum Statut {
   EN_ATTENTE
   EN_COURS
   TERMINE
@@ -51,10 +58,10 @@ Enum Statut {
 model Prelevement {
   id Int @id @default(autoincrement())
 
-  patient User @relation(fields: [patientId], references: [id])
+  patient Patient @relation(fields: [patientId], references: [id])
   patientId Int
 
-  technicien User @relation(fields: [technicienId], references: [id])
+  technicien Technicien @relation(fields: [technicienId], references: [id])
   technicienId Int
 
   analyse Analyse @relation(fields: [analyseId], references: [id])
@@ -62,7 +69,7 @@ model Prelevement {
 
   datePrelevement DateTime
   dateResultat DateTime?
-  statut Statut
+  statut Statut @default(EN_ATTENTE)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?

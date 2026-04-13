@@ -1,4 +1,8 @@
-import express from "../config/express.js";
+import express from "express";
+import patientRoutes from "./patient.route.js";
+import technicienRoutes from "./technicien.route.js";
+import analyseRoutes from "./analyse.route.js";
+import prelevementRoutes from "./prelevement.route.js";
 
 const router = express.Router();
 

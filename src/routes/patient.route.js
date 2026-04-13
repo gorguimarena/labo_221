@@ -1,21 +1,9 @@
-import express from "../config/express";
+import express from "express";
+import patientController from "../controllers/patient.controller.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des patients" });
-});
-
-router.post("/", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des patients" });
-});
-
-router.put("/:id", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des patients" });
-});
-
-router.delete("/:id", (req, res) => {
-    res.status(200).json({ message: "API du laboratoire LABO 221 - Gestion des patients" });
-});
+router.post("/", patientController.create);
+router.delete("/:id", patientController.delete);
 
 export default router;

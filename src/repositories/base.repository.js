@@ -1,4 +1,4 @@
-import prisma from "../config/prisma";
+import prisma from "../config/prisma.js";
 
 class BaseRepository {
     constructor(model) {
@@ -10,12 +10,16 @@ class BaseRepository {
         return this.prisma[this.model].create({ data });
     }
 
-    async findAll() {
-        return this.prisma[this.model].findMany();
+    async findAll(args = {}) {
+        return this.prisma[this.model].findMany(args);
     }
 
     async findById(id) {
         return this.prisma[this.model].findUnique({ where: { id } });
+    }
+
+    async findFirst(where) {
+        return this.prisma[this.model].findFirst({ where });
     }
 
     async update(id, data) {

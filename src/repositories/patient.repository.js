@@ -1,4 +1,4 @@
-import BaseRepository from "./base.repository";
+import BaseRepository from "./base.repository.js";
 
 class PatientRepository extends BaseRepository {
     constructor() {
