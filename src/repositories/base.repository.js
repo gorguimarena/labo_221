@@ -43,6 +43,11 @@ class BaseRepository {
     }
 
     async delete(id) {
+        const record = await this.findById(id);
+        if (!record) {
+            throw new Error("L'enregistrement spécifié n'existe pas ou a déjà été supprimé.");
+        }
+
         return this.prisma[this.model].update({ 
             where: { id },
             data: { deletedAt: new Date() }

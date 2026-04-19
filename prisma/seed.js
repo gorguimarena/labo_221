@@ -104,7 +104,20 @@ async function main() {
   });
 
   console.log("Seeding terminé avec succès !");
-  console.log("2 Techniciens, 2 Patients, 3 Analyses et 2 Prélèvements générés.");
+  
+  console.log("--- IDs GENÉRÉS ---");
+  console.log("Techniciens :");
+  console.log(`- ${technicien1.prenom} ${technicien1.nom} -> ID: ${technicien1.id}`);
+  console.log(`- ${technicien2.prenom} ${technicien2.nom} -> ID: ${technicien2.id}`);
+  
+  console.log("Patients :");
+  console.log(`- ${patient1.prenom} ${patient1.nom} -> ID: ${patient1.id}`);
+  console.log(`- ${patient2.prenom} ${patient2.nom} -> ID: ${patient2.id}`);
+  
+  console.log("Analyses :");
+  console.log(`- ${analyse1.libelle} (${analyse1.code}) -> ID: ${analyse1.id}`);
+  console.log(`- ${analyse2.libelle} (${analyse2.code}) -> ID: ${analyse2.id}`);
+  console.log(`- ${analyse3.libelle} (${analyse3.code}) -> ID: ${analyse3.id}`);
 }
 
 main()

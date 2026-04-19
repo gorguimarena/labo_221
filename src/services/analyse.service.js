@@ -1,16 +1,25 @@
 import AnalyseRepository from "../repositories/analyse.repository.js";
 import PrelevementRepository from "../repositories/prelevement.repository.js";
+import crypto from "crypto";
 
 const analyseRepository = new AnalyseRepository();
 const prelevementRepository = new PrelevementRepository();
 
 class AnalyseService {
     async create(data) {
-        // Vérification unicité code
-        const existing = await analyseRepository.findFirst({ code: data.code });
-        if (existing) {
-            throw new Error("le code de l'analyse est déjà utilisé");
+        let isUnique = false;
+        let generatedCode;
+
+        // Génération d'un code unique
+        while (!isUnique) {
+            generatedCode = `ANA-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
+            const existing = await analyseRepository.findFirst({ code: generatedCode });
+            if (!existing) {
+                isUnique = true;
+            }
         }
+
+        data.code = generatedCode;
         return await analyseRepository.create(data);
     }
 

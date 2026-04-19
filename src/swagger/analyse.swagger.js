@@ -12,7 +12,6 @@
  *     Analyse:
  *       type: object
  *       required:
- *         - code
  *         - libelle
  *         - prix
  *         - delaiResultat
@@ -21,7 +20,7 @@
  *           type: integer
  *         code:
  *           type: string
- *           description: Code unique de l'analyse
+ *           description: Code unique de l'analyse (Généré automatiquement)
  *         libelle:
  *           type: string
  *           description: Intitulé (ex NFS, glycémie)
@@ -33,7 +32,6 @@
  *           type: integer
  *           description: Délai du résultat en heures (entier > 0)
  *       example:
- *         code: "GLY-01"
  *         libelle: "Glycémie à jeun"
  *         prix: 5000.0
  *         delaiResultat: 24

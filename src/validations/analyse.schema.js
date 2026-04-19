@@ -1,7 +1,6 @@
 import z from "../config/zod.js";
 
 const createAnalyseSchema = z.object({
-    code: z.string().min(1, "Le code est requis"),
     libelle: z.string().min(1, "Le libellé est requis"),
     prix: z.number().positive("Le prix doit être supérieur à 0"),
     delaiResultat: z.number().int("Le délai doit être un entier").positive("Le délai doit être supérieur à 0"),

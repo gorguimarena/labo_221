@@ -1,4 +1,16 @@
 services:
+  backend:
+    build: 
+      context: .
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    container_name: backend
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    networks:
+      - labo-network
 
   postgres:
     image: postgres:17
