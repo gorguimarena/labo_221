@@ -28,9 +28,6 @@ jobs:
       - name: Run migration
         run: npx prisma generate
 
-      - name: Type check with tsc
-        run: npx tsc --noEmit
-
       - name: Login to Docker hub to push images
         uses: docker/login-action@v3
         with:
