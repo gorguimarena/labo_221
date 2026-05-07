@@ -1,8 +1,9 @@
 import BaseRepository from "./base.repository.js";
+import { keys } from "../models/keys.models.js";
 
 class TechnicienRepository extends BaseRepository {
     constructor() {
-        super("technicien");
+        super(keys.technicien);
     }
 }
 
