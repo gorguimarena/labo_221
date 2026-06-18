@@ -1,6 +1,6 @@
 export const keys = {
-    analyse,
-    patient,
-    prelevement,
-    technicien
+    analyse: "analyse",
+    patient: "patient",
+    prelevement: "prelevement",
+    technicien: "technicien"
 }
